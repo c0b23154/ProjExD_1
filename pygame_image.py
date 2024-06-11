@@ -16,6 +16,8 @@ def main():
     k3_rct = k3_img.get_rect()  #画像Surfaceに対応する画像Rectを取得する
     k3_rct.center = 300, 200    
     tmr = 0
+
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
@@ -25,15 +27,25 @@ def main():
         screen.blit(bg_flip, [-x+1600, 0])
         screen.blit(bg_img, [-x+3200, 0])    #7
         screen.blit(bg_flip, [-x+4800, 0])
+        # screen.blit(k3_img, [-x, 0]) 
         key_lst = pg.key.get_pressed()
+        a = [0, 0]
         if key_lst[pg.K_UP]:
-            k3_rct.move_ip((0, -1))
+            a[0] = -1
+            a[1] = -1
         elif key_lst[pg.K_DOWN]:
-            k3_rct.move_ip((0, 1))
+            a[0] = -1
+            a[1] = 1            
         elif key_lst[pg.K_RIGHT]:
-            k3_rct.move_ip((1, 0))
+            a[0] = 2
+            a[1] = 0            
         elif key_lst[pg.K_LEFT]:
-            k3_rct.move_ip((-1, 0))
+            a[0] = -1
+            a[1] = 0
+        else:
+            a[0] = -1
+            a[1] = 0
+        k3_rct.move_ip(a)
         #横300，縦200の位置に，こうかとんSurfaceをblitせよ．
         screen.blit(k3_img, k3_rct)     #画像SurfaceをスクリーンSurfaceにRectに従って貼り付ける
         pg.display.update()
