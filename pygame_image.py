@@ -13,6 +13,8 @@ def main():
     bg_flip = pg.transform.flip(bg_img, True, False)
     k3_img = pg.image.load("fig/3.png")     #こうかとん画像「3.png」を読み込み，Surfaceを生成せよ．
     k3_img = pg.transform.flip(k3_img, True, False)   #そして，左右を反転せよ．
+    k3_rct = k3_img.get_rect()  #画像Surfaceに対応する画像Rectを取得する
+    k3_rct.center = 300, 200    
     tmr = 0
     while True:
         for event in pg.event.get():
@@ -21,11 +23,18 @@ def main():
         x = tmr%4800         #こうかとんが画面右に向かって進んでいるように見せるために，背景画像を右から左に動くように，背景画像の横座標を修正せよ．そして，1600フレーム後に背景画像が間延びしないように，工夫せよ．
         screen.blit(bg_img, [-x, 0])    #背景画像を表示せよ．
         screen.blit(bg_flip, [-x+1600, 0])
-        screen.blit(bg_img, [-x+3200, 0])
+        screen.blit(bg_img, [-x+3200, 0])    #7
         screen.blit(bg_flip, [-x+4800, 0])
+        key_lst = pg.key.get_pressed()
+        if key_lst[pg.K_UP]:
+            k3_rct.move_ip((0, -1))
+        elif key_lst[pg.K_DOWN]:
+            k3_rct.move_ip((0, 1))
+        elif key_lst[pg.K_RIGHT]:
+            k3_rct.move_ip((1, 0))
+        elif key_lst[pg.K_LEFT]:
+            k3_rct.move_ip((-1, 0))
         #横300，縦200の位置に，こうかとんSurfaceをblitせよ．
-        k3_rct = k3_img.get_rect()  #画像Surfaceに対応する画像Rectを取得する
-        k3_rct.center = 300, 200    
         screen.blit(k3_img, k3_rct)     #画像SurfaceをスクリーンSurfaceにRectに従って貼り付ける
         pg.display.update()
         tmr += 1        
