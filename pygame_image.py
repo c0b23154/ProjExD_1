@@ -31,20 +31,19 @@ def main():
         key_lst = pg.key.get_pressed()
         a = [0, 0]
         if key_lst[pg.K_UP]:
-            a[0] = -1
-            a[1] = -1
-        elif key_lst[pg.K_DOWN]:
-            a[0] = -1
+            a[0] = 0
+            a[1] -= 1
+        if key_lst[pg.K_DOWN]:
+            a[0] = 0
             a[1] = 1            
-        elif key_lst[pg.K_RIGHT]:
+        if key_lst[pg.K_RIGHT]:
             a[0] = 2
             a[1] = 0            
-        elif key_lst[pg.K_LEFT]:
+        if key_lst[pg.K_LEFT]:
             a[0] = -1
             a[1] = 0
-        else:
-            a[0] = -1
-            a[1] = 0
+
+        a[0] += -1
         k3_rct.move_ip(a)
         #横300，縦200の位置に，こうかとんSurfaceをblitせよ．
         screen.blit(k3_img, k3_rct)     #画像SurfaceをスクリーンSurfaceにRectに従って貼り付ける
